@@ -4,7 +4,7 @@ spring:
 
   # db connection
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
+    url: jdbc:postgresql://localhost:5432/procurement_db
     username: postgres
     password: changemeinprod!
 
@@ -17,3 +17,9 @@ spring:
       hibernate:
         format_sql: true
         dialect: org.hibernate.dialect.PostgreSQLDialect
+    open-in-view: false
+
+# JWT Configuration
+jwt:
+  secret: thisIsMysecregtfrdesww233eggtffeeddgkjjhhtdhttebd54ndhdhfhhhshs8877465sbbdd
+  expiration: 3600000  # 1 hour in milliseconds
