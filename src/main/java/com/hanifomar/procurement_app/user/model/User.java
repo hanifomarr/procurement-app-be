@@ -1,9 +1,12 @@
 package com.hanifomar.procurement_app.user.model;
 
+import com.hanifomar.procurement_app.purchaseorder.model.PurchaseOrder;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -27,6 +30,9 @@ public class User {
 
     @Column(nullable = false)
     private String name;
+
+    @OneToMany(mappedBy = "createdBy")
+    private List<PurchaseOrder> purchaseOrders = new ArrayList<>();
 
     @Column(nullable = false)
     private LocalDateTime createdAt;
