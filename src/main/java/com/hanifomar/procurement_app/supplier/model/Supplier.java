@@ -3,7 +3,6 @@ package com.hanifomar.procurement_app.supplier.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -25,12 +24,7 @@ public class Supplier {
     @Column(nullable = false, unique = true)
     private String contactEmail;
 
-    @Column
     private String phone;
 
-    @Column
     private String address;
-
-    @Column(nullable = false)
-    private LocalDateTime createdAt = LocalDateTime.now();
 }
