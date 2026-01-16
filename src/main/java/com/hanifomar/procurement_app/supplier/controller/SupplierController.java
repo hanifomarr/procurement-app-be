@@ -3,6 +3,7 @@ package com.hanifomar.procurement_app.supplier.controller;
 import com.hanifomar.procurement_app.supplier.dto.SupplierRequestDto;
 import com.hanifomar.procurement_app.supplier.dto.SupplierResponseDto;
 import com.hanifomar.procurement_app.supplier.service.SupplierService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +30,7 @@ public class SupplierController {
     }
 
     @PostMapping
-    public ResponseEntity<SupplierResponseDto> createSupplier(@RequestBody SupplierRequestDto supplierRequestDto) {
+    public ResponseEntity<SupplierResponseDto> createSupplier(@Valid @RequestBody SupplierRequestDto supplierRequestDto) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(supplierService.createSupplier(supplierRequestDto));
     }
@@ -37,7 +38,7 @@ public class SupplierController {
     @PutMapping("/{id}")
     public ResponseEntity<SupplierResponseDto> updateSupplier(
             @PathVariable UUID id,
-            @RequestBody SupplierRequestDto supplierRequestDto
+            @Valid @RequestBody SupplierRequestDto supplierRequestDto
     ) {
         return ResponseEntity.ok(supplierService.updateSupplier(id, supplierRequestDto));
     }

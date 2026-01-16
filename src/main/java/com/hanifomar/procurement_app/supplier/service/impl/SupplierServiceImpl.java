@@ -9,7 +9,6 @@ import com.hanifomar.procurement_app.supplier.service.SupplierService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -35,7 +34,6 @@ public class SupplierServiceImpl implements SupplierService {
     @Override
     public SupplierResponseDto createSupplier(SupplierRequestDto requestDto) {
         Supplier supplier = supplierMapper.fromDto(requestDto);
-        supplier.setCreatedAt(LocalDateTime.now());
         return supplierMapper.toDto(supplierRepository.save(supplier));
     }
 
