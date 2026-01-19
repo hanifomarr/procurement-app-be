@@ -32,7 +32,7 @@ public class Supplier {
 
     private String address;
 
-    @OneToMany(mappedBy = "supplier")
+    @OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PurchaseOrder> purchaseOrders = new ArrayList<>();
 
     @Override
