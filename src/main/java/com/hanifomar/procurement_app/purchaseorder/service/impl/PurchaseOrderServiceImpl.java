@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -76,6 +77,13 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
                 .orElseThrow(() -> new RuntimeException("Purchase Order not found"));
 
         return mapper.toResponse(po);
+    }
+
+    @Override
+    public List<PurchaseOrderResponse> findAll() {
+        List<PurchaseOrder> orders = poRepository.findAll();
+
+        return mapper.toResponseList(orders);
     }
 
     private String generatePoNumber() {
