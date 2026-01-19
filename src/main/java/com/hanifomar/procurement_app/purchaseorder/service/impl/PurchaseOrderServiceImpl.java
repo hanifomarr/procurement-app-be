@@ -109,9 +109,9 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         PurchaseOrder po = poRepository.findById(poId)
                 .orElseThrow(() -> new RuntimeException("Purchase Order not found"));
 
-        if (po.getStatus() != PurchaseOrderStatus.DRAFT) {
-            throw new RuntimeException("Only DRAFT Purchase Orders can be updated");
-        }
+//        if (po.getStatus() != PurchaseOrderStatus.DRAFT) {
+//            throw new RuntimeException("Only DRAFT Purchase Orders can be updated");
+//        }
 
         if (request.getSupplierId() != null) {
             Supplier supplier = supplierRepository.findById(request.getSupplierId())
@@ -154,9 +154,9 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         PurchaseOrder po = poRepository.findById(poId)
                 .orElseThrow(() -> new RuntimeException("Purchase Order not found"));
 
-        if (po.getStatus() != PurchaseOrderStatus.DRAFT) {
-            throw new RuntimeException("Only DRAFT Purchase Orders can be deleted");
-        }
+//        if (po.getStatus() != PurchaseOrderStatus.DRAFT) {
+//            throw new RuntimeException("Only DRAFT Purchase Orders can be deleted");
+//        }
 
         poRepository.delete(po);
     }
