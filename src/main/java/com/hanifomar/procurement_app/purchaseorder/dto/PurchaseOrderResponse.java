@@ -16,6 +16,7 @@ public class PurchaseOrderResponse {
     private String poNumber;
     private PurchaseOrderStatus status;
     private String supplierName;
+    private UUID supplierId;
     private BigDecimal totalAmount;
     private Integer totalQuantity;
     private List<PurchaseOrderItemResponse> items;
