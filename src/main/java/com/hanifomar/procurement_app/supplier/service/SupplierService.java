@@ -2,7 +2,6 @@ package com.hanifomar.procurement_app.supplier.service;
 
 import com.hanifomar.procurement_app.supplier.dto.SupplierRequestDto;
 import com.hanifomar.procurement_app.supplier.dto.SupplierResponseDto;
-import com.hanifomar.procurement_app.supplier.model.Supplier;
 
 import java.util.List;
 import java.util.UUID;
