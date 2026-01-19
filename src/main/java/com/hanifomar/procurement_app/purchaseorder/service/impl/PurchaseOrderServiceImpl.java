@@ -2,6 +2,7 @@ package com.hanifomar.procurement_app.purchaseorder.service.impl;
 
 import com.hanifomar.procurement_app.purchaseorder.dto.CreatePurchaseOrderRequest;
 import com.hanifomar.procurement_app.purchaseorder.dto.PurchaseOrderResponse;
+import com.hanifomar.procurement_app.purchaseorder.dto.UpdatePurchaseOrderRequest;
 import com.hanifomar.procurement_app.purchaseorder.mapper.PurchaseOrderMapper;
 import com.hanifomar.procurement_app.purchaseorder.model.PurchaseOrder;
 import com.hanifomar.procurement_app.purchaseorder.model.PurchaseOrderItem;
@@ -97,6 +98,51 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         }
 
         po.setStatus(PurchaseOrderStatus.SUBMITTED);
+        poRepository.save(po);
+
+        return mapper.toResponse(po);
+    }
+
+    @Override
+    @Transactional
+    public PurchaseOrderResponse update(UUID poId, UpdatePurchaseOrderRequest request) {
+        PurchaseOrder po = poRepository.findById(poId)
+                .orElseThrow(() -> new RuntimeException("Purchase Order not found"));
+
+        if (po.getStatus() != PurchaseOrderStatus.DRAFT) {
+            throw new RuntimeException("Only DRAFT Purchase Orders can be updated");
+        }
+
+        if (request.getSupplierId() != null) {
+            Supplier supplier = supplierRepository.findById(request.getSupplierId())
+                    .orElseThrow(() -> new RuntimeException("Supplier not found"));
+            po.setSupplier(supplier);
+        }
+
+        // --- Update items only if provided ---
+        if (request.getItems() != null) {
+            // Clear old items
+            po.getPurchaseOrderItemList().clear();
+
+            // Add new items
+            request.getItems().forEach(i -> {
+                PurchaseOrderItem item = PurchaseOrderItem.builder()
+                        .productName(i.getProductName())
+                        .quantity(i.getQuantity())
+                        .unitPrice(i.getUnitPrice())
+                        .build();
+                po.addItem(item);
+            });
+
+            // Recalculate totals
+            BigDecimal totalAmount = po.getPurchaseOrderItemList().stream()
+                    .map(PurchaseOrderItem::getLineTotal)
+                    .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+            po.setTotalAmount(totalAmount);
+        }
+
+        // Save changes
         poRepository.save(po);
 
         return mapper.toResponse(po);

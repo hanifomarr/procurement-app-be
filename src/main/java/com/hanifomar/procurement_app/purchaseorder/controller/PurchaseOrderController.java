@@ -2,6 +2,7 @@ package com.hanifomar.procurement_app.purchaseorder.controller;
 
 import com.hanifomar.procurement_app.purchaseorder.dto.CreatePurchaseOrderRequest;
 import com.hanifomar.procurement_app.purchaseorder.dto.PurchaseOrderResponse;
+import com.hanifomar.procurement_app.purchaseorder.dto.UpdatePurchaseOrderRequest;
 import com.hanifomar.procurement_app.purchaseorder.service.PurchaseOrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -42,6 +43,15 @@ public class PurchaseOrderController {
     public ResponseEntity<PurchaseOrderResponse> submitPo(@PathVariable UUID id) {
         return ResponseEntity.ok(purchaseOrderService.submit(id));
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<PurchaseOrderResponse> update(
+            @PathVariable UUID id,
+            @RequestBody UpdatePurchaseOrderRequest request
+    ) {
+        return ResponseEntity.ok(purchaseOrderService.update(id, request));
+    }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePo(@PathVariable UUID id) {
