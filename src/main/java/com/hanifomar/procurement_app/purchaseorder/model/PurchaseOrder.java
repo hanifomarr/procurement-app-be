@@ -63,12 +63,17 @@ public class PurchaseOrder {
         item.setPurchaseOrder(this);
     }
 
-
     public void removeItem(PurchaseOrderItem item) {
         purchaseOrderItemList.remove(item);
         item.setPurchaseOrder(null);
     }
 
+    public Integer getTotalQuantity() {
+        return purchaseOrderItemList
+                .stream()
+                .mapToInt(PurchaseOrderItem::getQuantity)
+                .sum();
+    }
 
     @Override
     public boolean equals(Object o) {
