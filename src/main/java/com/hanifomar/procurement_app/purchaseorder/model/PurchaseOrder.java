@@ -48,6 +48,8 @@ public class PurchaseOrder {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
+
+    @Builder.Default
     private List<PurchaseOrderItem> purchaseOrderItemList = new ArrayList<>();
 
     @Column(nullable = false)
@@ -55,6 +57,17 @@ public class PurchaseOrder {
 
     @Column(nullable = false)
     private LocalDateTime updatedAt;
+
+    public void addItem(PurchaseOrderItem item) {
+        purchaseOrderItemList.add(item);
+        item.setPurchaseOrder(this);
+    }
+
+
+    public void removeItem(PurchaseOrderItem item) {
+        purchaseOrderItemList.remove(item);
+        item.setPurchaseOrder(null);
+    }
 
 
     @Override

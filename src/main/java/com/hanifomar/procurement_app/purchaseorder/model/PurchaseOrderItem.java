@@ -29,13 +29,14 @@ public class PurchaseOrderItem {
     @Column(nullable = false, precision = 15, scale = 2)
     private BigDecimal unitPrice;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "purchase_order_id")
+    private PurchaseOrder purchaseOrder;
+
     public BigDecimal getLineTotal() {
         return unitPrice.multiply(BigDecimal.valueOf(quantity));
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "purchase_order_id")
-    private PurchaseOrder purchaseOrder;
 
     @Override
     public boolean equals(Object o) {
