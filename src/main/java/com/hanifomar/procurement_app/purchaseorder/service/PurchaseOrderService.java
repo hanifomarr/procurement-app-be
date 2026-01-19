@@ -8,4 +8,6 @@ import java.util.UUID;
 public interface PurchaseOrderService {
     PurchaseOrderResponse create(CreatePurchaseOrderRequest request, UUID userId);
 
+    PurchaseOrderResponse getById(UUID id);
+
 }

@@ -54,7 +54,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
                     .unitPrice(i.getUnitPrice())
                     .build();
 
-            po.addItem(item); // 🔥 VERY IMPORTANT
+            po.addItem(item);
         });
 
         BigDecimal totalAmount = po.getPurchaseOrderItemList().stream()
@@ -67,6 +67,15 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 
         return mapper.toResponse(po);
 
+    }
+
+    @Override
+    public PurchaseOrderResponse getById(UUID id) {
+
+        PurchaseOrder po = poRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Purchase Order not found"));
+
+        return mapper.toResponse(po);
     }
 
     private String generatePoNumber() {

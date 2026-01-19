@@ -24,5 +24,13 @@ public class PurchaseOrderController {
     ) {
         return ResponseEntity.ok(purchaseOrderService.create(request, userId));
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PurchaseOrderResponse> getById(
+            @PathVariable UUID id
+    ) {
+        return ResponseEntity.ok(purchaseOrderService.getById(id));
+    }
+
 }
 
