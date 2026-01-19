@@ -43,6 +43,12 @@ public class PurchaseOrderController {
         return ResponseEntity.ok(purchaseOrderService.submit(id));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletePo(@PathVariable UUID id) {
+        purchaseOrderService.delete(id);
+        return ResponseEntity.noContent().build(); // 204 No Content
+    }
+
 
 }
 

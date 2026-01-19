@@ -102,6 +102,19 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         return mapper.toResponse(po);
     }
 
+    @Override
+    @Transactional
+    public void delete(UUID poId) {
+        PurchaseOrder po = poRepository.findById(poId)
+                .orElseThrow(() -> new RuntimeException("Purchase Order not found"));
+
+        if (po.getStatus() != PurchaseOrderStatus.DRAFT) {
+            throw new RuntimeException("Only DRAFT Purchase Orders can be deleted");
+        }
+
+        poRepository.delete(po);
+    }
+
     private String generatePoNumber() {
         return "PO-" + System.currentTimeMillis();
     }
