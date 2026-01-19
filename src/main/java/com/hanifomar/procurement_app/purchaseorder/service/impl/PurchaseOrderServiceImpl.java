@@ -86,6 +86,22 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         return mapper.toResponseList(orders);
     }
 
+    @Override
+    @Transactional
+    public PurchaseOrderResponse submit(UUID poId) {
+        PurchaseOrder po = poRepository.findById(poId)
+                .orElseThrow(() -> new RuntimeException("Purchase Order not found"));
+
+        if (po.getStatus() != PurchaseOrderStatus.DRAFT) {
+            throw new RuntimeException("Only DRAFT Purchase Orders can be submitted");
+        }
+
+        po.setStatus(PurchaseOrderStatus.SUBMITTED);
+        poRepository.save(po);
+
+        return mapper.toResponse(po);
+    }
+
     private String generatePoNumber() {
         return "PO-" + System.currentTimeMillis();
     }

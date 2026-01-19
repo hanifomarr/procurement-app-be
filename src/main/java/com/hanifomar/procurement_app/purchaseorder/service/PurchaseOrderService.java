@@ -13,5 +13,5 @@ public interface PurchaseOrderService {
 
     List<PurchaseOrderResponse> findAll();
 
-
+    PurchaseOrderResponse submit(UUID poId);
 }

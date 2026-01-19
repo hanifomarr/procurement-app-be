@@ -38,6 +38,11 @@ public class PurchaseOrderController {
         return ResponseEntity.ok(purchaseOrderService.findAll());
     }
 
+    @PatchMapping("/{id}/submit")
+    public ResponseEntity<PurchaseOrderResponse> submitPo(@PathVariable UUID id) {
+        return ResponseEntity.ok(purchaseOrderService.submit(id));
+    }
+
 
 }
 
