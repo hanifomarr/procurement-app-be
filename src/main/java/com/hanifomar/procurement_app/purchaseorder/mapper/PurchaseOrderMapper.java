@@ -14,6 +14,7 @@ import java.util.List;
 public interface PurchaseOrderMapper {
 
     @Mapping(target = "supplierName", source = "supplier.name")
+    @Mapping(target = "supplierId", source = "supplier.id")
     @Mapping(target = "status", source = "status")
     @Mapping(target = "items", source = "purchaseOrderItemList")
     @Mapping(target = "totalQuantity", expression = "java(po.getTotalQuantity())")
